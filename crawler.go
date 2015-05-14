@@ -9,7 +9,7 @@ import (
 /* we will need
 * A main function, which reads parameters from the CLI
 * A function which parses the page for links
-* A function which visits linkso
+* A function which visits links
  */
 
 func main() {
@@ -21,6 +21,10 @@ func main() {
 		panic(err)
 	}
 
+	parse(page)
+}
+
+func parse(page *goquery.Document) {
 	page.Find("a").Each(func(i int, s *goquery.Selection) {
 		href, exists := s.Attr("href")
 		if exists {
