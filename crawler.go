@@ -28,6 +28,3 @@ func main() {
 		}
 	})
 }
-
-func find_root(domain string) {
-}
