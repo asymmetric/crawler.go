@@ -21,10 +21,11 @@ func main() {
 		panic(err)
 	}
 
-	parse(page)
+	ch := make(chan string)
+	parse(ch, page)
 }
 
-func parse(page *goquery.Document) {
+func parse(ch chan<- string, page *goquery.Document) {
 	page.Find("a").Each(func(i int, s *goquery.Selection) {
 		href, exists := s.Attr("href")
 		if exists {
