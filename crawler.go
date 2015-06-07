@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/PuerkitoBio/goquery"
 	"os" // for command-line arguments
+	"runtime"
 )
 
 /* we will need
@@ -13,6 +14,8 @@ import (
  */
 
 func main() {
+	setMaxProc()
+
 	domain := os.Args[1]
 	fmt.Println("Parsing", domain)
 	page, err := goquery.NewDocument(domain)
@@ -32,4 +35,10 @@ func parse(ch chan<- string, page *goquery.Document) {
 			fmt.Println("link found:", href)
 		}
 	})
+}
+
+func setMaxProc() {
+	num_cpu := runtime.NumCPU()
+	fmt.Println("Setting GOMAXPROCS to", num_cpu)
+	runtime.GOMAXPROCS(num_cpu)
 }
