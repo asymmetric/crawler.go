@@ -24,7 +24,7 @@ func main() {
 		panic(err)
 	}
 
-	ch := make(chan string)
+	ch := make(chan string, 100)
 	parse(ch, page)
 }
 
