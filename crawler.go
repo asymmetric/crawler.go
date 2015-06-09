@@ -31,7 +31,7 @@ func main() {
 		go func(jobs <-chan string) {
 			url := <-jobs
 
-			fmt.Println("popped", url)
+			fmt.Printf("Worker %v popped %v\n", n, url)
 		}(link_q)
 	}
 
