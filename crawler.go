@@ -28,11 +28,12 @@ func main() {
 	parse(ch, page)
 }
 
-func parse(ch chan<- string, page *goquery.Document) {
+func parse(jobs chan<- string, page *goquery.Document) {
 	page.Find("a").Each(func(i int, s *goquery.Selection) {
 		href, exists := s.Attr("href")
 		if exists {
 			fmt.Println("link found:", href)
+			jobs <- href
 		}
 	})
 }
