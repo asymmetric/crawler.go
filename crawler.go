@@ -24,8 +24,20 @@ func main() {
 		panic(err)
 	}
 
-	ch := make(chan string, 100)
-	parse(ch, page)
+	link_q := make(chan string, 100)
+	parse(link_q, page)
+
+	for n := 0; n < 100; n++ {
+		go func(jobs <-chan string) {
+			url := <-jobs
+
+			fmt.Println("popped", url)
+		}(link_q)
+	}
+
+	var input string
+	fmt.Scanln(&input)
+	fmt.Println("Exiting")
 }
 
 func parse(jobs chan<- string, page *goquery.Document) {
